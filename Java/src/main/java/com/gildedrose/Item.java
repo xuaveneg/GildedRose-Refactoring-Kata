@@ -6,16 +6,16 @@ public class Item {
 
     public int sellIn;
 
-    public int quality;
+    public int mutableQuality;
 
     public Item(String name, int sellIn, int quality) {
         this.name = name;
         this.sellIn = sellIn;
-        this.quality = quality;
+        this.mutableQuality = quality;
     }
 
    @Override
    public String toString() {
-        return this.name + ", " + this.sellIn + ", " + this.quality;
+       return this.name + ", " + this.sellIn + ", " + this.mutableQuality;
     }
 }
