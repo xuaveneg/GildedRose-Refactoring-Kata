@@ -1,6 +1,11 @@
 package com.gildedrose;
 
+import java.util.Arrays;
+
 class GildedRose {
+    public static final String AGED_BRIE = "Aged Brie";
+    public static final String BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
+    public static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -8,55 +13,53 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (items[i].mutableQuality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].mutableQuality = items[i].mutableQuality - 1;
+        Arrays.stream(items).forEach(currentItem -> {
+            if (!currentItem.name.equals(AGED_BRIE)
+                    && !currentItem.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
+                if (currentItem.mutableQuality > 0) {
+                    if (!currentItem.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
+                        currentItem.mutableQuality = currentItem.mutableQuality - 1;
                     }
                 }
             } else {
-                if (items[i].mutableQuality < 50) {
-                    items[i].mutableQuality = items[i].mutableQuality + 1;
+                if (currentItem.mutableQuality < 50) {
+                    currentItem.mutableQuality = currentItem.mutableQuality + 1;
 
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].mutableQuality < 50) {
-                                items[i].mutableQuality = items[i].mutableQuality + 1;
+                    if (currentItem.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
+                        if (currentItem.sellIn < 11) {
+                            if (currentItem.mutableQuality < 50) {
+                                currentItem.mutableQuality = currentItem.mutableQuality + 1;
                             }
                         }
 
-                        if (items[i].sellIn < 6) {
-                            if (items[i].mutableQuality < 50) {
-                                items[i].mutableQuality = items[i].mutableQuality + 1;
+                        if (currentItem.sellIn < 6) {
+                            if (currentItem.mutableQuality < 50) {
+                                currentItem.mutableQuality = currentItem.mutableQuality + 1;
                             }
                         }
                     }
                 }
             }
-
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
+            if (!currentItem.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
+                currentItem.sellIn = currentItem.sellIn - 1;
             }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].mutableQuality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].mutableQuality = items[i].mutableQuality - 1;
+            if (currentItem.sellIn < 0) {
+                if (!currentItem.name.equals(AGED_BRIE)) {
+                    if (!currentItem.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
+                        if (currentItem.mutableQuality > 0) {
+                            if (!currentItem.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
+                                currentItem.mutableQuality = currentItem.mutableQuality - 1;
                             }
                         }
                     } else {
-                        items[i].mutableQuality = items[i].mutableQuality - items[i].mutableQuality;
+                        currentItem.mutableQuality = currentItem.mutableQuality - currentItem.mutableQuality;
                     }
                 } else {
-                    if (items[i].mutableQuality < 50) {
-                        items[i].mutableQuality = items[i].mutableQuality + 1;
+                    if (currentItem.mutableQuality < 50) {
+                        currentItem.mutableQuality = currentItem.mutableQuality + 1;
                     }
                 }
             }
-        }
+        });
     }
 }
